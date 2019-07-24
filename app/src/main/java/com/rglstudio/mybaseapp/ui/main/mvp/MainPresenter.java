@@ -2,7 +2,7 @@ package com.rglstudio.mybaseapp.ui.main.mvp;
 
 import com.rglstudio.mybaseapp.base.BasePresenter;
 import com.rglstudio.mybaseapp.listener.CallbackWithList;
-import com.rglstudio.mybaseapp.model.ResponPhoto;
+import com.rglstudio.mybaseapp.model.ResponData;
 
 import java.util.List;
 
@@ -21,11 +21,12 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements
     @Override
     public void getAll() {
         getMvpView().showLoading();
-        interactor.getAll(new CallbackWithList<ResponPhoto>() {
+        interactor.getAll(new CallbackWithList<ResponData>() {
             @Override
-            public void onSuccess(List<ResponPhoto> list) {
+            public void onSuccess(List<ResponData> list) {
                 getMvpView().hideLoading();
                 getMvpView().updateRecyclerView(list);
+                getMvpView().saveToLocal(list);
             }
 
             @Override

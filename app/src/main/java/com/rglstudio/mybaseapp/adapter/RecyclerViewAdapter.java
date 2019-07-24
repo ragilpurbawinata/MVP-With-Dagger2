@@ -3,34 +3,36 @@ package com.rglstudio.mybaseapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.rglstudio.mybaseapp.R;
-import com.rglstudio.mybaseapp.model.ResponPhoto;
+import com.rglstudio.mybaseapp.model.ResponData;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.Holder> {
-    private List<ResponPhoto> listPhoto;
+    private List<ResponData> listData;
 
     public RecyclerViewAdapter() {
-        listPhoto = new ArrayList<>();
+        listData = new ArrayList<>();
     }
 
-    public List<ResponPhoto> getList() {
-        return listPhoto;
+    public List<ResponData> getList() {
+        return listData;
     }
 
-    public void setList(List<ResponPhoto> list) {
-        if (!listPhoto.isEmpty()){
-            listPhoto.clear();
+    public void setList(List<ResponData> list) {
+        if (!listData.isEmpty()){
+            listData.clear();
         }
-        listPhoto.addAll(list);
+        listData.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -42,22 +44,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        ResponPhoto photo = listPhoto.get(position);
-        Glide.with(holder.imageView.getContext())
-                .load(photo.getThumbnailUrl())
-                .into(holder.imageView);
+        ResponData data = listData.get(position);
+
+        holder.author.setText(data.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return listPhoto.size();
+        return listData.size();
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        @BindView(R.id.author)
+        TextView author;
+
         public Holder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.pic);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
