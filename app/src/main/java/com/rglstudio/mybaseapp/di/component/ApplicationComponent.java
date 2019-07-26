@@ -19,7 +19,7 @@ import dagger.Component;
 public interface ApplicationComponent {
     PreferenceHelper preferenceHelper();
 
-    ApiInterface articleApi();
+    ApiInterface apiInterface();
 
     AppDatabase appDatabase();
 
